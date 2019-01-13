@@ -59,26 +59,36 @@ public class BaseballElimination {
 
     // number of wins for given team
     public int wins(String team) {
+        if (!teamIndex.containsKey(team))
+            throw new IllegalArgumentException("Has no such team");
         return w[teamIndex.get(team)];
     }
 
     // number of losses for given team
     public int losses(String team) {
+        if (!teamIndex.containsKey(team))
+            throw new IllegalArgumentException("Has no such team");
         return l[teamIndex.get(team)];
     }
 
     // number of remaining games for given team
     public int remaining(String team) {
+        if (!teamIndex.containsKey(team))
+            throw new IllegalArgumentException("Has no such team");
         return r[teamIndex.get(team)];
     }
 
     // number of remaining games between team1 and team2
     public int against(String team1, String team2) {
+        if (!teamIndex.containsKey(team1) || !teamIndex.containsKey(team2))
+            throw new IllegalArgumentException("Has no such team");
         return g[teamIndex.get(team1)][teamIndex.get(team2)];
     }
 
     // is given team eliminated?
     public boolean isEliminated(String team) {
+        if (!teamIndex.containsKey(team))
+            throw new IllegalArgumentException("Has no such team");
         int x = teamIndex.get(team);
         if (!eliminated.containsKey(x))
             eliminated.put(x, certificateOfElimination(team) != null);
@@ -139,6 +149,8 @@ public class BaseballElimination {
 
     // subset R of teams that eliminates given team; null if not eliminated
     public Iterable<String> certificateOfElimination(String teamName) {
+        if (!teamIndex.containsKey(teamName))
+            throw new IllegalArgumentException("Has no such team");
         int x = teamIndex.get(teamName);
         if (!eliminationCertificate.containsKey(x)) {
             HashSet<String> set = new HashSet<>();
