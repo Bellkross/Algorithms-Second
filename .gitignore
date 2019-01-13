@@ -1,0 +1,13 @@
+.idea/
+.lift/
+META-INF/
+*.class
+*.png
+*.txt
+*.iml
+SCUtility.java
+PrintEnergy.java
+PrintSeams.java
+ResizeDemo.java
+ShowEnergy.java
+ShowSeams.java
