@@ -1,7 +1,5 @@
 import edu.princeton.cs.algs4.TrieSET;
 
-import java.util.HashSet;
-
 public class BoggleSolver {
 
     private final TrieSET dictionary = new TrieSET();
@@ -14,7 +12,8 @@ public class BoggleSolver {
 
     // Returns the set of all valid words in the given Boggle board, as an Iterable.
     public Iterable<String> getAllValidWords(BoggleBoard board) {
-        return new HashSet<>();
+        Paths paths = new Paths(dictionary, board);
+        return paths.getPaths();
     }
 
     // Returns the score of the given word if it is in the dictionary, zero otherwise.
