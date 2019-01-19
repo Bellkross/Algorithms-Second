@@ -15,12 +15,11 @@ public class Paths {
         this.paths = new HashSet<>();
         int rows = board.rows();
         int cols = board.cols();
-        boolean[][][] marked = new boolean[rows*cols][rows][cols];
+        boolean[][][] marked = new boolean[rows * cols][rows][cols];
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < cols; j++) {
-                sb.delete(0, sb.toString().length() - 1);
-                dfs(new Point(i, j), marked[i*cols + j], sb);
+        for (int i = 0; i < rows; ++i) {
+            for (int j = 0, k = i * cols + j; j < cols; k = i * cols + (++j)) {
+                dfs(new Point(i, j), marked[k], sb);
             }
         }
     }
@@ -42,7 +41,8 @@ public class Paths {
             for (Point point : adj(p, rows, cols)) {
                 i = point.i();
                 j = point.j();
-                dfs(p, marked, sb);
+                if (!marked[i][j])
+                    dfs(point, marked, sb);
             }
         }
 
@@ -51,19 +51,23 @@ public class Paths {
     }
 
     private Iterable<Point> adj(Point p, int rows, int cols) {
-        int i = p.i();
-        int j = p.j();
+        int x = p.i();
+        int y = p.j();
         ArrayList<Point> points = new ArrayList<Point>();
-        boolean c1 = i > 0;
-        boolean c2 = j > 0;
-        if (c1) points.add(new Point(i - 1, j));
-        if (c2) points.add(new Point(i, j - 1));
-        if (c1 && c2) points.add(new Point(i - 1, j - 1));
-        c1 = i < (rows - 1);
-        c2 = j < (cols - 1);
-        if (c1) points.add(new Point(i + 1, j));
-        if (c2) points.add(new Point(i, j + 1));
-        if (c1 && c2) points.add(new Point(i + 1, j + 1));
+
+        boolean c1 = x > 0;
+        boolean c2 = y > 0;
+        boolean c3 = x < (rows - 1);
+        boolean c4 = y < (cols - 1);
+
+        if (c2) points.add(new Point(x, y - 1));
+        if (c1 && c2) points.add(new Point(x - 1, y - 1));
+        if (c1) points.add(new Point(x - 1, y));
+        if (c1 && c4) points.add(new Point(x - 1, y + 1));
+        if (c4) points.add(new Point(x, y + 1));
+        if (c3) points.add(new Point(x + 1, y));
+        if (c4) points.add(new Point(x, y + 1));
+        if (c3 && c4) points.add(new Point(x + 1, y + 1));
         return points;
     }
 }

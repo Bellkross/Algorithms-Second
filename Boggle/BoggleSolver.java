@@ -1,3 +1,5 @@
+import edu.princeton.cs.algs4.In;
+import edu.princeton.cs.algs4.StdOut;
 import edu.princeton.cs.algs4.TrieSET;
 
 public class BoggleSolver {
@@ -29,6 +31,16 @@ public class BoggleSolver {
     }
 
     public static void main(String[] args) {
-
+        In in = new In(args[0]);
+        String[] dictionary = in.readAllStrings();
+        BoggleSolver solver = new BoggleSolver(dictionary);
+        BoggleBoard board = new BoggleBoard(args[1]);
+        int score = 0;
+        Iterable<String> validWords = solver.getAllValidWords(board);
+        for (String word : validWords) {
+            StdOut.println(word);
+            score += solver.scoreOf(word);
+        }
+        StdOut.println("Score = " + score);
     }
 }
