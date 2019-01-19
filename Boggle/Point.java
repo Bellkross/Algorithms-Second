@@ -1,25 +1,25 @@
 public class Point {
-    private int i;
-    private int j;
+    private int row;
+    private int col;
 
-    public int i() {
-        return i;
+    public Point(int row, int col) {
+        this.row = row;
+        this.col = col;
     }
 
-    public void setI(int i) {
-        this.i = i;
+    public int row() {
+        return row;
     }
 
-    public int j() {
-        return j;
+    public void setRow(int row) {
+        this.row = row;
     }
 
-    public void setJ(int j) {
-        this.j = j;
+    public int col() {
+        return col;
     }
 
-    public Point(int i, int j) {
-        this.i = i;
-        this.j = j;
+    public void setCol(int col) {
+        this.col = col;
     }
 }
