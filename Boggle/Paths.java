@@ -50,7 +50,7 @@ public class Paths {
         char ch = board.getLetter(row, col);
         String str = sb.append(ch).toString();
         if (dictionary.keysWithPrefix(str).iterator().hasNext()) {
-            if (dictionary.contains(str)) paths.add(str);
+            if (str.length() > 2 && dictionary.contains(str)) paths.add(str);
             marked[row][col] = true;
             for (Point point : adj.get(p)) {
                 row = point.row();
@@ -75,30 +75,41 @@ public class Paths {
                 c = row < (rows - 1),
                 d = column < (cols - 1);
 
-        int i = row - 1;
-        int j = column;
-        if (a) pts.add(points[i * cols + j]);
-        i = row - 1;
-        j = column - 1;
-        if (a && b) pts.add(points[i * cols + j]);
+        int i;
+        int j;
+
         i = row;
         j = column - 1;
         if (b) pts.add(points[i * cols + j]);
-        i = row + 1;
+
+        i = row - 1;
         j = column - 1;
-        if (b && c) pts.add(points[i * cols + j]);
-        i = row + 1;
+        if (a && b) pts.add(points[i * cols + j]);
+
+        i = row - 1;
         j = column;
-        if (c) pts.add(points[i * cols + j]);
-        i = row + 1;
-        j = column + 1;
-        if (c && d) pts.add(points[i * cols + j]);
-        i = row;
-        j = column + 1;
-        if (d) pts.add(points[i * cols + j]);
+        if (a) pts.add(points[i * cols + j]);
+
         i = row - 1;
         j = column + 1;
         if (a && d) pts.add(points[i * cols + j]);
+
+        i = row;
+        j = column + 1;
+        if (d) pts.add(points[i * cols + j]);
+
+        i = row + 1;
+        j = column + 1;
+        if (c && d) pts.add(points[i * cols + j]);
+
+        i = row + 1;
+        j = column;
+        if (c) pts.add(points[i * cols + j]);
+
+        i = row + 1;
+        j = column - 1;
+        if (b && c) pts.add(points[i * cols + j]);
+
         return pts;
     }
 }
