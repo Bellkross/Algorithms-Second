@@ -9,7 +9,7 @@ public class Paths {
     private final TrieSET dictionary;
     private final BoggleBoard board;
     private final HashSet<String> paths;
-    private final HashMap<Point, ArrayList<Point>> adj;
+    private final HashMap<Point, Iterable<Point>> adj;
     private final Point[] points;
 
     Paths(TrieSET dictionary, BoggleBoard board) {
@@ -36,8 +36,9 @@ public class Paths {
         boolean[][][] marked = new boolean[rows * cols][rows][cols];
         StringBuilder sb = new StringBuilder();
 
-        for (Point p : adj.keySet())
+        for (Point p : adj.keySet()) {
             dfs(p, marked[p.row() * cols + p.col()], sb);
+        }
     }
 
     public Iterable<String> getPaths() {
@@ -52,19 +53,16 @@ public class Paths {
         if (dictionary.keysWithPrefix(str).iterator().hasNext()) {
             if (str.length() > 2 && dictionary.contains(str)) paths.add(str);
             marked[row][col] = true;
-            for (Point point : adj.get(p)) {
-                row = point.row();
-                col = point.col();
-                if (!marked[row][col])
+            for (Point point : adj.get(p))
+                if (!marked[point.row()][point.col()])
                     dfs(point, marked, sb);
-            }
         }
 
         marked[row][col] = false;
         sb.deleteCharAt(str.length() - 1);
     }
 
-    private ArrayList<Point> adj(Point p, int rows, int cols) {
+    private Iterable<Point> adj(Point p, int rows, int cols) {
         if (adj.containsKey(p)) return adj.get(p);
         int row = p.row();
         int column = p.col();
@@ -75,41 +73,24 @@ public class Paths {
                 c = row < (rows - 1),
                 d = column < (cols - 1);
 
-        int i;
-        int j;
-
-        i = row;
-        j = column - 1;
-        if (b) pts.add(points[i * cols + j]);
-
-        i = row - 1;
-        j = column - 1;
-        if (a && b) pts.add(points[i * cols + j]);
-
-        i = row - 1;
-        j = column;
-        if (a) pts.add(points[i * cols + j]);
-
-        i = row - 1;
-        j = column + 1;
-        if (a && d) pts.add(points[i * cols + j]);
-
-        i = row;
-        j = column + 1;
-        if (d) pts.add(points[i * cols + j]);
-
-        i = row + 1;
-        j = column + 1;
-        if (c && d) pts.add(points[i * cols + j]);
-
-        i = row + 1;
-        j = column;
-        if (c) pts.add(points[i * cols + j]);
-
-        i = row + 1;
-        j = column - 1;
-        if (b && c) pts.add(points[i * cols + j]);
+        if (a) pts.add(upper(p));
+        if (d && a) pts.add(upperRight(p));
+        if (d) pts.add(right(p));
+        if (c && d) pts.add(bottomRight(p));
+        if (c) pts.add(bottom(p));
+        if (b && c) pts.add(bottomLeft(p));
+        if (b) pts.add(left(p));
+        if (a && b) pts.add(upperLeft(p));
 
         return pts;
     }
+
+    private Point upper(Point p) { return points[(p.row() - 1) * board.cols() + p.col()]; }
+    private Point bottom(Point p) { return points[(p.row() + 1) * board.cols() + p.col()]; }
+    private Point left(Point p) { return points[p.row() * board.cols() + (p.col() - 1)]; }
+    private Point right(Point p) { return points[p.row() * board.cols() + (p.col() + 1)]; }
+    private Point upperLeft(Point p) { return points[(p.row() - 1) * board.cols() + (p.col() - 1)]; }
+    private Point bottomLeft(Point p) { return points[(p.row() + 1) * board.cols() + (p.col() - 1)]; }
+    private Point upperRight(Point p) { return points[(p.row() - 1) * board.cols() + (p.col() + 1)]; }
+    private Point bottomRight(Point p) { return points[(p.row() + 1) * board.cols() + (p.col() + 1)]; }
 }
