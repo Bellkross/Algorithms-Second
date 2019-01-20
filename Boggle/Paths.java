@@ -1,4 +1,4 @@
-import edu.princeton.cs.algs4.TrieSET;
+import edu.princeton.cs.algs4.TST;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -6,13 +6,13 @@ import java.util.HashSet;
 
 public class Paths {
 
-    private final TrieSET dictionary;
+    private final TST<Integer> dictionary;
     private final BoggleBoard board;
     private final HashSet<String> paths;
     private final HashMap<Point, Iterable<Point>> adj;
     private final Point[] points;
 
-    Paths(TrieSET dictionary, BoggleBoard board) {
+    Paths(TST<Integer> dictionary, BoggleBoard board) {
         int rows = board.rows();
         int cols = board.cols();
 

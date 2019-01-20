@@ -1,15 +1,15 @@
 import edu.princeton.cs.algs4.In;
 import edu.princeton.cs.algs4.Stopwatch;
-import edu.princeton.cs.algs4.TrieSET;
+import edu.princeton.cs.algs4.TST;
 
 public class BoggleSolver {
 
-    private final TrieSET dictionary = new TrieSET();
+    private final TST<Integer> dictionary = new TST<Integer>();
 
     // Initializes the data structure using the given array of strings as the dictionary.
     // (You can assume each word in the dictionary contains only the uppercase letters A through Z.)
     public BoggleSolver(String[] dictionary) {
-        for (String word : dictionary) this.dictionary.add(word);
+        for (String word : dictionary) this.dictionary.put(word, 0);
     }
 
     public static void main(String[] args) {
@@ -46,7 +46,7 @@ public class BoggleSolver {
     }
 
     private static void perfomance(int times) {
-        In in = new In("dictionary-algs4.txt");
+        In in = new In("dictionary-yawl.txt");
         String[] dictionary = in.readAllStrings();
         BoggleSolver solver = new BoggleSolver(dictionary);
         for (int i = 0; i < times; ++i) solver.getAllValidWords(new BoggleBoard());
