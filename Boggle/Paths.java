@@ -49,7 +49,7 @@ public class Paths {
         int row = p.row();
         int col = p.col();
         char ch = board.getLetter(row, col);
-        String str = sb.append(ch).toString();
+        String str = sb.append(ch == 'Q' ? "QU" : ch).toString();
         if (dictionary.keysWithPrefix(str).iterator().hasNext()) {
             if (str.length() > 2 && dictionary.contains(str)) paths.add(str);
             marked[row][col] = true;
@@ -59,7 +59,8 @@ public class Paths {
         }
 
         marked[row][col] = false;
-        sb.deleteCharAt(str.length() - 1);
+        if (ch == 'Q') sb.delete(str.length() - 2, str.length());
+        else sb.deleteCharAt(str.length() - 1);
     }
 
     private Iterable<Point> adj(Point p, int rows, int cols) {
