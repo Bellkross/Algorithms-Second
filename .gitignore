@@ -5,6 +5,12 @@ META-INF/
 *.png
 *.txt
 *.iml
+*.bwt
+*.huf
+*.gif
+*.mtf
+*.jpg
+*.bin
 SCUtility.java
 PrintEnergy.java
 PrintSeams.java
