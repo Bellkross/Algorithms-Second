@@ -11,6 +11,7 @@ META-INF/
 *.mtf
 *.jpg
 *.bin
+*.zip
 SCUtility.java
 PrintEnergy.java
 PrintSeams.java
