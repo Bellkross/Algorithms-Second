@@ -28,8 +28,9 @@ public class BurrowsWheeler {
         StringBuilder res = new StringBuilder();
         int first = -1;
         for (int i = 0; i < s.length(); ++i) {
-            if (csa.index(i) == 0) first = i;
-            res.append(csa.getSuffixAt(i).charAt(s.length() - 1));
+            int index = csa.index(i);
+            if (index == 0) first = i;
+            res.append(new Suffix(s, index).getCharAt(s.length() - 1));
         }
         BinaryStdOut.write(first + "\n");
         BinaryStdOut.write(res.toString());

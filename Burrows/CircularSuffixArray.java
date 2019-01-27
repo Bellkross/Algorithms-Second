@@ -41,8 +41,4 @@ public class CircularSuffixArray {
             throw new IllegalArgumentException("Incorrect index");
         return sorted[i].getIndex();
     }
-
-    public String getSuffixAt(int i) {
-        return sorted[i].toString();
-    }
 }
