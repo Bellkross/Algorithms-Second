@@ -1,6 +1,7 @@
 import edu.princeton.cs.algs4.BinaryStdIn;
 import edu.princeton.cs.algs4.BinaryStdOut;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 
@@ -52,6 +53,26 @@ public class MoveToFront {
 
     // apply move-to-front decoding, reading from standard input and writing to standard output
     public static void decode() {
+        LinkedList<Character> alpha = new LinkedList<>();
+        for (int i = 0; i < 256; ++i) alpha.add((char) i);
 
+        ArrayList<Integer> arr = new ArrayList<>();
+        while (!BinaryStdIn.isEmpty()) {
+            arr.add(BinaryStdIn.readInt(8));
+        }
+
+        for (int i : arr) {
+            byte j = -1;
+            Iterator<Character> it = alpha.iterator();
+            while (++j != i) it.next();
+            char ch = it.next();
+            it.remove();
+            alpha.addFirst(ch);
+            BinaryStdOut.write(ch);
+        }
+
+        BinaryStdOut.flush();
+        BinaryStdOut.close();
+        BinaryStdIn.close();
     }
 }
