@@ -32,7 +32,7 @@ public class BurrowsWheeler {
             if (index == 0) first = i;
             res.append(new Suffix(s, index).getCharAt(s.length() - 1));
         }
-        BinaryStdOut.write(first + "\n");
+        BinaryStdOut.write(first);
         BinaryStdOut.write(res.toString());
         BinaryStdOut.flush();
         BinaryStdOut.close();
