@@ -12,6 +12,7 @@ META-INF/
 *.jpg
 *.bin
 *.zip
+*.bat
 SCUtility.java
 PrintEnergy.java
 PrintSeams.java

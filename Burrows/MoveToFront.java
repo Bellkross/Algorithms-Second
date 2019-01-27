@@ -44,7 +44,6 @@ public class MoveToFront {
         }
         for (int i : out) {
             BinaryStdOut.write(i, 8);
-            BinaryStdOut.write(" ");
         }
         BinaryStdOut.flush();
         BinaryStdOut.close();
@@ -62,7 +61,7 @@ public class MoveToFront {
         }
 
         for (int i : arr) {
-            byte j = -1;
+            int j = -1;
             Iterator<Character> it = alpha.iterator();
             while (++j != i) it.next();
             char ch = it.next();
