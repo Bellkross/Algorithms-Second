@@ -25,15 +25,17 @@ public class BurrowsWheeler {
     public static void transform() {
         String s = BinaryStdIn.readString();
         CircularSuffixArray csa = new CircularSuffixArray(s);
-        StringBuilder res = new StringBuilder();
         int first = -1;
         for (int i = 0; i < s.length(); ++i) {
-            int index = csa.index(i);
-            if (index == 0) first = i;
-            res.append(new Suffix(s, index).getCharAt(s.length() - 1));
+            if (csa.index(i) == 0) {
+                first = i;
+                break;
+            }
         }
         BinaryStdOut.write(first);
-        BinaryStdOut.write(res.toString());
+        for (int i = 0; i < s.length(); i++) {
+            BinaryStdOut.write(new Suffix(s, csa.index(i)).getCharAt(s.length() - 1));
+        }
         BinaryStdOut.flush();
         BinaryStdOut.close();
         BinaryStdIn.close();
